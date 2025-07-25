@@ -60,7 +60,6 @@ export default function useTasks() {
   };
 
   const updateTask = async (id: string) => {
-    // Find current completion status *before* setting state
     const taskToUpdate = tasks.find((t) => t.id === id);
 
     if (!taskToUpdate) {
@@ -71,7 +70,6 @@ export default function useTasks() {
     const previousCompleted = taskToUpdate.completed;
     const newCompleted = !previousCompleted;
 
-    // Optimistically update
     setTasks((prev) =>
       prev.map((t) =>
         t.id === id
@@ -87,7 +85,6 @@ export default function useTasks() {
       await updateTaskDB(id, newCompleted);
     } catch (error) {
       console.error("Update failed, reverting");
-      // Revert back if API call failed
       setTasks((prev) =>
         prev.map((t) =>
           t.id === id
