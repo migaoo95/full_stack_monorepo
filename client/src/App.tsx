@@ -1,6 +1,6 @@
 import "./App.css";
 import AppLayout from "./components/layout/app-layout";
-import TaskContainer from "./components/TaskList/TaskContainer";
+import TaskContainer from "./features/tasks/components/TaskContainer";
 
 function App() {
   return (
