@@ -21,20 +21,18 @@ export const createTask = async (title: string): Promise<Task> => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      id: crypto.randomUUID(),
       title,
-      completed: false,
     }),
   });
 
   if (!response.ok) throw new Error("Failed to create");
 
-  const task = response.json();
+  const task = await response.json();
 
   return task;
 };
 
-export const deleteTask = async (id: string): Promise<Task> => {
+export const deleteTask = async (id: string) => {
   const response = await fetch(
     `${import.meta.env.VITE_BASE_URL}/api/tasks/${id}`,
     {
@@ -44,10 +42,6 @@ export const deleteTask = async (id: string): Promise<Task> => {
   );
 
   if (!response.ok) throw new Error("Failed to delete item.");
-
-  const deletedTask = await response.json();
-
-  return deletedTask;
 };
 
 export const updateTaskDB = async (

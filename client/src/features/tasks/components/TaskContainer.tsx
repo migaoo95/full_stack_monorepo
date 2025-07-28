@@ -5,7 +5,7 @@ import Spinner from "../../../components/common/Spinner";
 import useTasks from "../hooks/useTask";
 
 export default function TaskContainer() {
-  const { tasks, loading, addTask, removeTask, updateTask } = useTasks();
+  const { tasks, addTask, removeTask, updateTask } = useTasks();
 
   return (
     <div className="flex justify-center items-center w-full h-full">
@@ -17,7 +17,7 @@ export default function TaskContainer() {
           </p>
         </div>
         <TaskForm addTask={addTask} />
-        {loading ? (
+        {true ? (
           <Spinner />
         ) : (
           <TaskList

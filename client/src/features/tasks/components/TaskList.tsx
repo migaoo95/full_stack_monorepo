@@ -1,5 +1,6 @@
 import { TiDeleteOutline } from "react-icons/ti";
 import type { Task } from "../schemas/taskSchema";
+import classNames from "classnames";
 
 export default function TaskList({
   tasks,
@@ -41,21 +42,32 @@ function TaskItem({
   removeTask: (id: string) => Promise<void>;
   updateTask: (id: string) => Promise<void>;
 }) {
-  console.log(task.completed);
   return (
     <div
-      onClick={() => updateTask(task.id)}
+      onClick={(e) => {
+        e.stopPropagation();
+        updateTask(task.id);
+      }}
       className="flex w-full justify-between space-x-2"
     >
       <div className="flex flex-1 justify-between cursor-pointer relative bg-gray-200/50 hover:bg-gray-400/50 px-2 rounded-sm">
-        <p>{task.title}</p>
+        <p
+          className={classNames(
+            task.completed ? "text-black/40" : "text-black"
+          )}
+        >
+          {task.title}
+        </p>
 
         {task.completed && (
           <div className="w-[90%] h-0.5 bg-black/20  absolute top-1/2 transform -translate-y-1/2"></div>
         )}
       </div>
       <div
-        onClick={() => removeTask(task.id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          removeTask(task.id);
+        }}
         className="bg-red-300 hover:bg-red-500 rounded-md text-white w-6 h-6 flex justify-center items-center"
       >
         <TiDeleteOutline className="w-5 h-5 cursor-pointer" />
